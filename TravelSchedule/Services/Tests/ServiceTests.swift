@@ -3,6 +3,17 @@
 import OpenAPIRuntime
 import OpenAPIURLSession
 
+private enum TestConstants {
+    static let spbLat: Double = 59.864177
+    static let spbLng: Double = 30.319163
+    static let nearbyDistance: Int = 50
+    static let spbCode = "c2"
+    static let moscowCode = "c213"
+    static let pulkovoStation = "s9600213"
+    static let aeroflotCode = "SU"
+    static let iataSystem = "iata"
+}
+
 private func makeClient() throws -> Client {
     Client(
         serverURL: try Servers.Server1.url(),
@@ -16,9 +27,9 @@ func testFetchStations() {
         do {
             let service = NearestStationsService(client: try makeClient())
             let stations = try await service.getNearestStations(
-                lat: 59.864177,
-                lng: 30.319163,
-                distance: 50
+                lat: TestConstants.spbLat,
+                lng: TestConstants.spbLng,
+                distance: TestConstants.nearbyDistance
             )
             print("[OK] NearestStations: \(stations.stations?.count ?? 0) станций")
         } catch {
@@ -32,8 +43,8 @@ func testFetchScheduleBetweenStations() {
         do {
             let service = ScheduleBetweenStationsService(client: try makeClient())
             let schedule = try await service.getScheduleBetweenStations(
-                from: "c2",
-                to: "c213"
+                from: TestConstants.spbCode,
+                to: TestConstants.moscowCode
             )
             print("[OK] ScheduleBetweenStations: \(schedule.segments?.count ?? 0) сегментов")
         } catch {
@@ -46,7 +57,7 @@ func testFetchStationSchedule() {
     Task {
         do {
             let service = StationScheduleService(client: try makeClient())
-            let schedule = try await service.getStationSchedule(station: "s9600213")
+            let schedule = try await service.getStationSchedule(station: TestConstants.pulkovoStation)
             print("[OK] StationSchedule: \(schedule.schedule?.count ?? 0) записей")
         } catch {
             print("[FAIL] StationSchedule: \(error)")
@@ -60,8 +71,8 @@ func testFetchRouteStations() {
             let client = try makeClient()
             let searchService = ScheduleBetweenStationsService(client: client)
             let schedule = try await searchService.getScheduleBetweenStations(
-                from: "c2",
-                to: "c213"
+                from: TestConstants.spbCode,
+                to: TestConstants.moscowCode
             )
             guard let uid = schedule.segments?.first?.thread?.uid else {
                 print("[FAIL] RouteStations: не удалось получить uid из расписания")
@@ -81,8 +92,8 @@ func testFetchNearestCity() {
         do {
             let service = NearestCityService(client: try makeClient())
             let city = try await service.getNearestCity(
-                lat: 59.864177,
-                lng: 30.319163
+                lat: TestConstants.spbLat,
+                lng: TestConstants.spbLng
             )
             print("[OK] NearestCity: \(city.title ?? "no title")")
         } catch {
@@ -95,7 +106,7 @@ func testFetchCarrierInfo() {
     Task {
         do {
             let service = CarrierInfoService(client: try makeClient())
-            let carrier = try await service.getCarrierInfo(code: "SU", system: "iata")
+            let carrier = try await service.getCarrierInfo(code: TestConstants.aeroflotCode, system: TestConstants.iataSystem)
             print("[OK] CarrierInfo: \(carrier.carrier?.title ?? "no title")")
         } catch {
             print("[FAIL] CarrierInfo: \(error)")
