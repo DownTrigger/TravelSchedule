@@ -100,8 +100,6 @@ iOSInjectionProject/
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode
 
-# Secrets
-TravelSchedule/Secrets.swift
 
 # Claude tooling
 .serena/
