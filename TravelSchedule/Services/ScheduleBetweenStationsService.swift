@@ -15,7 +15,7 @@ final class ScheduleBetweenStationsService: ScheduleBetweenStationsServiceProtoc
     }
 
     func getScheduleBetweenStations(from: String, to: String) async throws -> ScheduleBetweenStations {
-        let response = try await client.getSchedualBetweenStations(query: .init(
+        let response = try await client.getScheduleBetweenStations(query: .init(
             from: from,
             to: to
         ))
