@@ -3,17 +3,18 @@
 import OpenAPIRuntime
 import OpenAPIURLSession
 
+private func makeClient() throws -> Client {
+    Client(
+        serverURL: try Servers.Server1.url(),
+        transport: URLSessionTransport(),
+        middlewares: [AuthMiddleware()]
+    )
+}
+
 func testFetchStations() {
     Task {
         do {
-            let client = Client(
-                serverURL: try Servers.Server1.url(),
-                transport: URLSessionTransport()
-            )
-            let service = NearestStationsService(
-                client: client,
-                apikey: Secrets.apiKey
-            )
+            let service = NearestStationsService(client: try makeClient())
             let stations = try await service.getNearestStations(
                 lat: 59.864177,
                 lng: 30.319163,
@@ -29,14 +30,7 @@ func testFetchStations() {
 func testFetchScheduleBetweenStations() {
     Task {
         do {
-            let client = Client(
-                serverURL: try Servers.Server1.url(),
-                transport: URLSessionTransport()
-            )
-            let service = ScheduleBetweenStationsService(
-                client: client,
-                apikey: Secrets.apiKey
-            )
+            let service = ScheduleBetweenStationsService(client: try makeClient())
             let schedule = try await service.getScheduleBetweenStations(
                 from: "c2",
                 to: "c213"
@@ -51,14 +45,7 @@ func testFetchScheduleBetweenStations() {
 func testFetchStationSchedule() {
     Task {
         do {
-            let client = Client(
-                serverURL: try Servers.Server1.url(),
-                transport: URLSessionTransport()
-            )
-            let service = StationScheduleService(
-                client: client,
-                apikey: Secrets.apiKey
-            )
+            let service = StationScheduleService(client: try makeClient())
             let schedule = try await service.getStationSchedule(station: "s9600213")
             print("[OK] StationSchedule: \(schedule.schedule?.count ?? 0) записей")
         } catch {
@@ -70,14 +57,8 @@ func testFetchStationSchedule() {
 func testFetchRouteStations() {
     Task {
         do {
-            let client = Client(
-                serverURL: try Servers.Server1.url(),
-                transport: URLSessionTransport()
-            )
-            let searchService = ScheduleBetweenStationsService(
-                client: client,
-                apikey: Secrets.apiKey
-            )
+            let client = try makeClient()
+            let searchService = ScheduleBetweenStationsService(client: client)
             let schedule = try await searchService.getScheduleBetweenStations(
                 from: "c2",
                 to: "c213"
@@ -86,10 +67,7 @@ func testFetchRouteStations() {
                 print("[FAIL] RouteStations: не удалось получить uid из расписания")
                 return
             }
-            let service = RouteStationsService(
-                client: client,
-                apikey: Secrets.apiKey
-            )
+            let service = RouteStationsService(client: client)
             let route = try await service.getRouteStations(uid: uid)
             print("[OK] RouteStations: \(route.stops?.count ?? 0) остановок")
         } catch {
@@ -101,14 +79,7 @@ func testFetchRouteStations() {
 func testFetchNearestCity() {
     Task {
         do {
-            let client = Client(
-                serverURL: try Servers.Server1.url(),
-                transport: URLSessionTransport()
-            )
-            let service = NearestCityService(
-                client: client,
-                apikey: Secrets.apiKey
-            )
+            let service = NearestCityService(client: try makeClient())
             let city = try await service.getNearestCity(
                 lat: 59.864177,
                 lng: 30.319163
@@ -123,14 +94,7 @@ func testFetchNearestCity() {
 func testFetchCarrierInfo() {
     Task {
         do {
-            let client = Client(
-                serverURL: try Servers.Server1.url(),
-                transport: URLSessionTransport()
-            )
-            let service = CarrierInfoService(
-                client: client,
-                apikey: Secrets.apiKey
-            )
+            let service = CarrierInfoService(client: try makeClient())
             let carrier = try await service.getCarrierInfo(code: "SU", system: "iata")
             print("[OK] CarrierInfo: \(carrier.carrier?.title ?? "no title")")
         } catch {
@@ -142,14 +106,7 @@ func testFetchCarrierInfo() {
 func testFetchAllStations() {
     Task {
         do {
-            let client = Client(
-                serverURL: try Servers.Server1.url(),
-                transport: URLSessionTransport()
-            )
-            let service = AllStationsService(
-                client: client,
-                apikey: Secrets.apiKey
-            )
+            let service = AllStationsService(client: try makeClient())
             let stations = try await service.getAllStations()
             print("[OK] AllStations: \(stations.countries?.count ?? 0) стран")
         } catch {
@@ -161,14 +118,7 @@ func testFetchAllStations() {
 func testFetchCopyright() {
     Task {
         do {
-            let client = Client(
-                serverURL: try Servers.Server1.url(),
-                transport: URLSessionTransport()
-            )
-            let service = CopyrightService(
-                client: client,
-                apikey: Secrets.apiKey
-            )
+            let service = CopyrightService(client: try makeClient())
             let copyright = try await service.getCopyright()
             print("[OK] Copyright: \(copyright.copyright?.text ?? "no text")")
         } catch {

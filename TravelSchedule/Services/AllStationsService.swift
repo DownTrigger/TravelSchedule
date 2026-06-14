@@ -10,15 +10,13 @@ protocol AllStationsServiceProtocol {
 
 final class AllStationsService: AllStationsServiceProtocol {
     private let client: Client
-    private let apikey: String
 
-    init(client: Client, apikey: String) {
+    init(client: Client) {
         self.client = client
-        self.apikey = apikey
     }
 
     func getAllStations() async throws -> AllStations {
-        let response = try await client.getAllStations(query: .init(apikey: apikey))
+        let response = try await client.getAllStations(query: .init())
         let responseBody = try response.ok.body.html
         let limit = 50 * 1024 * 1024
         let fullData = try await Data(collecting: responseBody, upTo: limit)
