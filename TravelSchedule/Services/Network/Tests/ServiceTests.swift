@@ -126,6 +126,17 @@ func testFetchAllStations() {
     }
 }
 
+func runAllServiceTests() {
+    testFetchStations()
+    testFetchScheduleBetweenStations()
+    testFetchStationSchedule()
+    testFetchRouteStations()
+    testFetchNearestCity()
+    testFetchCarrierInfo()
+    testFetchAllStations()
+    testFetchCopyright()
+}
+
 func testFetchCopyright() {
     Task {
         do {
