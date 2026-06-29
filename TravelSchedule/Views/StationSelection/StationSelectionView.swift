@@ -24,24 +24,32 @@ struct StationSelectionView: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
 
-            List(viewModel.filtered, id: \.self) { station in
-                Button {
-                    selectStation(station)
-                } label: {
-                    HStack {
-                        Text(station)
-                            .foregroundStyle(.primary)
-                        Spacer()
-                        Image(systemName: Icons.chevronRight)
-                            .font(.system(size: FontSize.body, weight: .semibold))
-                            .foregroundStyle(.primary)
+            if viewModel.filtered.isEmpty {
+                Spacer()
+                Text("Станция не найдена")
+                    .font(.system(size: FontSize.large, weight: .bold))
+                    .foregroundStyle(Color("textPrimary"))
+                Spacer()
+            } else {
+                List(viewModel.filtered, id: \.self) { station in
+                    Button {
+                        selectStation(station)
+                    } label: {
+                        HStack {
+                            Text(station)
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            Image(systemName: Icons.chevronRight)
+                                .font(.system(size: FontSize.body, weight: .semibold))
+                                .foregroundStyle(.primary)
+                        }
+                        .frame(height: 60)
                     }
-                    .frame(height: 60)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 }
-                .listRowSeparator(.hidden)
-                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                .listStyle(.plain)
             }
-            .listStyle(.plain)
         }
         .navigationTitle("Выбор станции")
         .navigationBarTitleDisplayMode(.inline)
