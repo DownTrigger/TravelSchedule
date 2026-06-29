@@ -24,6 +24,8 @@ struct TravelScheduleApp: App {
         UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
     }
 
+    @StateObject private var appState = AppState()
+
     var body: some Scene {
         WindowGroup {
             if showSplash {
@@ -35,6 +37,7 @@ struct TravelScheduleApp: App {
                     }
             } else {
                 ContentView()
+                    .environmentObject(appState)
             }
         }
     }

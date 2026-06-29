@@ -9,5 +9,6 @@ struct ScheduleFlowView: View {
         NavigationStack {
             ScheduleView(from: from, to: to, onDismiss: { dismiss() })
         }
+        .errorOverlay()
     }
 }

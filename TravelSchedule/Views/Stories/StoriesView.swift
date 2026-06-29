@@ -66,6 +66,7 @@ struct StoriesView: View {
         })
         .onAppear { startTimer() }
         .onDisappear { stopTimer() }
+        .errorOverlay()
     }
 
     private func startTimer() {

@@ -27,5 +27,6 @@ struct CitySelectionFlowView: View {
                 )
             }
         }
+        .errorOverlay()
     }
 }

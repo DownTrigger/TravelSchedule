@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("isDarkMode") private var isDarkMode = false
-    @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject private var appState: AppState
 
     var body: some View {
         TabView {
@@ -16,13 +15,7 @@ struct ContentView: View {
                     Image(systemName: Icons.settingsTab)
                 }
         }
-        .preferredColorScheme(isDarkMode ? .dark : .light)
-        .onAppear {
-            isDarkMode = colorScheme == .dark
-        }
-        .onChange(of: colorScheme) {
-            isDarkMode = colorScheme == .dark
-        }
+        .errorOverlay()
     }
 }
 
