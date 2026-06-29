@@ -21,6 +21,11 @@
 			path = TravelSchedule;
 			sourceTree = "<group>";
 		};
+		212CEAA62FEEAE0700638D80 /* yaml */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = yaml;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +46,7 @@
 			children = (
 				212CE9112FDADA5A00638D80 /* TravelSchedule */,
 				212CE9102FDADA5A00638D80 /* Products */,
+				212CEAA62FEEAE0700638D80 /* yaml */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +76,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				212CE9112FDADA5A00638D80 /* TravelSchedule */,
+				212CEAA62FEEAE0700638D80 /* yaml */,
 			);
 			name = TravelSchedule;
 			packageProductDependencies = (
