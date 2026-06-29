@@ -30,6 +30,7 @@ struct MainView: View {
 
             Spacer()
         }
+        .background(Color("background"))
         .fullScreenCover(isPresented: $showCityPicker) {
             CitySelectionFlowView(
                 direction: cityPickerDirection,

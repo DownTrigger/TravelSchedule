@@ -18,6 +18,8 @@ struct TravelScheduleApp: App {
 
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = UIColor(named: "background")
+        tabBarAppearance.shadowColor = UIColor.black.withAlphaComponent(0.3)
         tabBarAppearance.stackedLayoutAppearance.normal.iconColor = normalColor
         tabBarAppearance.stackedLayoutAppearance.selected.iconColor = selectedColor
         UITabBar.appearance().standardAppearance = tabBarAppearance

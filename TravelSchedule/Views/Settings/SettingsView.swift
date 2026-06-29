@@ -1,17 +1,11 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @AppStorage("isDarkMode") private var isDarkMode = false
     @State private var showAgreement = false
 
     var body: some View {
         VStack(spacing: 0) {
             Spacer().frame(height: 24)
-            Toggle("Темная тема", isOn: $isDarkMode)
-                .tint(Color("tsBlue"))
-                .padding(.horizontal, 16)
-                .frame(height: 60)
-
             Button {
                 showAgreement = true
             } label: {
@@ -40,6 +34,7 @@ struct SettingsView: View {
             }
             .padding(.bottom, 16)
         }
+        .background(Color("background"))
         .fullScreenCover(isPresented: $showAgreement) {
             NavigationStack {
                 UserAgreementView()

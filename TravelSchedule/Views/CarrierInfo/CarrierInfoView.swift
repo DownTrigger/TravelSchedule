@@ -52,6 +52,7 @@ struct CarrierInfoView: View {
 
             Spacer()
         }
+        .background(Color("background"))
         .navigationTitle("Информация о перевозчике")
         .navigationBarTitleDisplayMode(.inline)
         .customBackButton()

@@ -8,6 +8,7 @@ struct UserAgreementView: View {
             Text(viewModel.text)
                 .padding(16)
         }
+        .background(Color("background"))
         .navigationTitle("Пользовательское соглашение")
         .navigationBarTitleDisplayMode(.inline)
         .customBackButton()

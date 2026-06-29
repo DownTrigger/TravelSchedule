@@ -87,6 +87,7 @@ struct FilterView: View {
                 .padding(16)
             }
         }
+        .background(Color("background"))
         .navigationTitle("")
         .customBackButton()
     }

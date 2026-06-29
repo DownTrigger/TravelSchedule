@@ -49,6 +49,8 @@ struct ScheduleView: View {
                             .listRowBackground(Color.clear)
                     }
                     .listStyle(.plain)
+                    .scrollContentBackground(.hidden)
+                    .background(Color("background"))
                 }
 
                 Button {
@@ -72,6 +74,7 @@ struct ScheduleView: View {
                 .padding(16)
             }
         }
+        .background(Color("background"))
         .navigationDestination(isPresented: $showFilter) {
             FilterView(
                 filtersApplied: $viewModel.filtersApplied,

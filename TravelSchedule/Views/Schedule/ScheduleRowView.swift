@@ -27,7 +27,8 @@ struct ScheduleRowView: View {
 
                 Text(item.date)
                     .font(.system(size: FontSize.caption))
-                    .foregroundStyle(Color("tsGray"))
+                    .foregroundStyle(Color("tsBlack"))
+                    .kerning(0.4)
             }
 
             HStack(spacing: 4) {
@@ -36,16 +37,17 @@ struct ScheduleRowView: View {
                     .foregroundStyle(Color("tsBlack"))
 
                 Rectangle()
-                    .fill(Color("tsGray").opacity(0.4))
+                    .fill(Color("tsGray"))
                     .frame(height: 1)
 
                 Text(item.duration)
                     .font(.system(size: FontSize.caption))
-                    .foregroundStyle(Color("tsGray"))
+                    .foregroundStyle(Color("tsBlack"))
                     .fixedSize()
+                    .kerning(0.4)
 
                 Rectangle()
-                    .fill(Color("tsGray").opacity(0.4))
+                    .fill(Color("tsGray"))
                     .frame(height: 1)
 
                 Text(item.arrivalTime)
@@ -55,6 +57,6 @@ struct ScheduleRowView: View {
         }
         .padding(12)
         .background(Color("tsLightGray"))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .clipShape(RoundedRectangle(cornerRadius: 24))
     }
 }

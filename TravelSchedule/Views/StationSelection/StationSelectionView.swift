@@ -46,11 +46,15 @@ struct StationSelectionView: View {
                         .frame(height: 60)
                     }
                     .listRowSeparator(.hidden)
+                    .listRowBackground(Color("background"))
                     .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 }
                 .listStyle(.plain)
+                .scrollContentBackground(.hidden)
+                .background(Color("background"))
             }
         }
+        .background(Color("background"))
         .navigationTitle("Выбор станции")
         .navigationBarTitleDisplayMode(.inline)
         .customBackButton()
